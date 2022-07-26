@@ -1,0 +1,9 @@
+{
+	"name": "scdcdemo",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "92c10dcf-65ba-464e-adb1-e09eb8298531",
+		"tenantId": "72ff80c9-9daa-4505-b3da-c10f785a2d72"
+	}
+}
