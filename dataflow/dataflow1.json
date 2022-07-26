@@ -1,0 +1,89 @@
+{
+	"name": "dataflow1",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Disease",
+						"type": "DatasetReference"
+					},
+					"name": "Disease"
+				},
+				{
+					"dataset": {
+						"referenceName": "DiseaseDescription",
+						"type": "DatasetReference"
+					},
+					"name": "Description"
+				},
+				{
+					"dataset": {
+						"referenceName": "Precaution",
+						"type": "DatasetReference"
+					},
+					"name": "Precaution"
+				},
+				{
+					"dataset": {
+						"referenceName": "Symptoms",
+						"type": "DatasetReference"
+					},
+					"name": "Symptoms"
+				}
+			],
+			"sinks": [],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          Disease as string,",
+				"          Symptom_0 as string,",
+				"          Symptom_1 as string,",
+				"          Symptom_2 as string,",
+				"          Symptom_3 as string,",
+				"          Symptom_4 as string,",
+				"          Symptom_5 as string,",
+				"          Symptom_6 as string,",
+				"          Symptom_7 as string,",
+				"          Symptom_8 as string,",
+				"          Symptom_9 as string,",
+				"          Symptom_10 as string,",
+				"          Symptom_11 as string,",
+				"          Symptom_12 as string,",
+				"          Symptom_13 as string,",
+				"          Symptom_14 as string,",
+				"          Symptom_15 as string,",
+				"          Symptom_16 as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Disease",
+				"source(output(",
+				"          Disease as string,",
+				"          Symptom_Description as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Description",
+				"source(output(",
+				"          Disease as string,",
+				"          Symptom_precaution_0 as string,",
+				"          Symptom_precaution_1 as string,",
+				"          Symptom_precaution_2 as string,",
+				"          Symptom_precaution_3 as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Precaution",
+				"source(output(",
+				"          Symptom as string,",
+				"          Symptom_severity as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Symptoms"
+			]
+		}
+	}
+}
