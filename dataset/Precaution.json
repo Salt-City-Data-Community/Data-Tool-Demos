@@ -1,0 +1,44 @@
+{
+	"name": "Precaution",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "disease_precaution.csv",
+				"container": "scdcdemo-initialdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Disease",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_precaution_0",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_precaution_1",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_precaution_2",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_precaution_3",
+				"type": "String"
+			}
+		]
+	}
+}

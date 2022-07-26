@@ -1,0 +1,32 @@
+{
+	"name": "Symptoms",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "symptom_severity.csv",
+				"container": "scdcdemo-initialdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Symptom",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_severity",
+				"type": "String"
+			}
+		]
+	}
+}

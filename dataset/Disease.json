@@ -1,0 +1,96 @@
+{
+	"name": "Disease",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "dataset.csv",
+				"container": "scdcdemo-initialdata"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "Disease",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_0",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_1",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_2",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_3",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_4",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_5",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_6",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_7",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_8",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_9",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_10",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_11",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_12",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_13",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_14",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_15",
+				"type": "String"
+			},
+			{
+				"name": "Symptom_16",
+				"type": "String"
+			}
+		]
+	}
+}
