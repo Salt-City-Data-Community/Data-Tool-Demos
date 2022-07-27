@@ -1,0 +1,529 @@
+{
+	"$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"type": "string",
+			"metadata": "Data Factory name",
+			"defaultValue": "scdcdemo"
+		},
+		"AzureBlobStorage1_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		}
+	},
+	"variables": {
+		"factoryId": "[concat('Microsoft.DataFactory/factories/', parameters('factoryName'))]"
+	},
+	"resources": [
+		{
+			"name": "[concat(parameters('factoryName'), '/DiseasePrediction')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "DiseasePrediction",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "dataflow1",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Disease": {},
+									"Description": {},
+									"Precaution": {},
+									"Symptoms": {},
+									"Blob": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Disease')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "dataset.csv",
+						"container": "scdcdemo-initialdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Disease",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_0",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_1",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_2",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_3",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_4",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_5",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_6",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_7",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_8",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_9",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_10",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_11",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_12",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_13",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_14",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_15",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_16",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DiseaseDescription')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "disease_description.csv",
+						"container": "scdcdemo-initialdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Disease",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_Description",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Final')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "scdcdemo-final"
+					}
+				},
+				"schema": {}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/FinalOutput')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"container": "scdcdemo-final"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Precaution')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "disease_precaution.csv",
+						"container": "scdcdemo-initialdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Disease",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_precaution_0",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_precaution_1",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_precaution_2",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_precaution_3",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Symptoms')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "symptom_severity.csv",
+						"container": "scdcdemo-initialdata"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "Symptom",
+						"type": "String"
+					},
+					{
+						"name": "Symptom_severity",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureBlobStorage1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureBlobStorage",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/dataflow1')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Disease",
+								"type": "DatasetReference"
+							},
+							"name": "Disease"
+						},
+						{
+							"dataset": {
+								"referenceName": "DiseaseDescription",
+								"type": "DatasetReference"
+							},
+							"name": "Description"
+						},
+						{
+							"dataset": {
+								"referenceName": "Precaution",
+								"type": "DatasetReference"
+							},
+							"name": "Precaution"
+						},
+						{
+							"dataset": {
+								"referenceName": "Symptoms",
+								"type": "DatasetReference"
+							},
+							"name": "Symptoms"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "FinalOutput",
+								"type": "DatasetReference"
+							},
+							"name": "Blob"
+						}
+					],
+					"transformations": [
+						{
+							"name": "SymptomsUnpivot"
+						},
+						{
+							"name": "RemoveUnwanted"
+						},
+						{
+							"name": "NoNulls"
+						},
+						{
+							"name": "DescriptionJoin"
+						},
+						{
+							"name": "PrecautionJoin"
+						}
+					],
+					"scriptLines": [
+						"source(output(",
+						"          Disease as string,",
+						"          Symptom_0 as string,",
+						"          Symptom_1 as string,",
+						"          Symptom_2 as string,",
+						"          Symptom_3 as string,",
+						"          Symptom_4 as string,",
+						"          Symptom_5 as string,",
+						"          Symptom_6 as string,",
+						"          Symptom_7 as string,",
+						"          Symptom_8 as string,",
+						"          Symptom_9 as string,",
+						"          Symptom_10 as string,",
+						"          Symptom_11 as string,",
+						"          Symptom_12 as string,",
+						"          Symptom_13 as string,",
+						"          Symptom_14 as string,",
+						"          Symptom_15 as string,",
+						"          Symptom_16 as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Disease",
+						"source(output(",
+						"          Disease as string,",
+						"          Symptom_Description as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Description",
+						"source(output(",
+						"          Disease as string,",
+						"          Symptom_precaution_0 as string,",
+						"          Symptom_precaution_1 as string,",
+						"          Symptom_precaution_2 as string,",
+						"          Symptom_precaution_3 as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Precaution",
+						"source(output(",
+						"          Symptom as string,",
+						"          Symptom_severity as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Symptoms",
+						"Disease unpivot(output(",
+						"          Symptom as string,",
+						"          Symptom_0 as string,",
+						"          Symptom_1 as string,",
+						"          Symptom_3 as string,",
+						"          Symptom_4 as string,",
+						"          Symptom_5 as string,",
+						"          Symptom_6 as string,",
+						"          Symptom_7 as string,",
+						"          Symptom_8 as string,",
+						"          Symptom_9 as string,",
+						"          Symptom_10 as string",
+						"     ),",
+						"     ungroupBy(Disease),",
+						"     lateral: true,",
+						"     ignoreNullPivots: true) ~> SymptomsUnpivot",
+						"SymptomsUnpivot select(mapColumn(",
+						"          Disease,",
+						"          Symptom,",
+						"          Symptom_0",
+						"     ),",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true) ~> RemoveUnwanted",
+						"RemoveUnwanted filter(Symptom_0 != 'null') ~> NoNulls",
+						"NoNulls, Description join(RemoveUnwanted@Disease == Description@Disease,",
+						"     joinType:'outer',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> DescriptionJoin",
+						"DescriptionJoin, Precaution join(RemoveUnwanted@Disease == Precaution@Disease,",
+						"     joinType:'outer',",
+						"     matchType:'exact',",
+						"     ignoreSpaces: false,",
+						"     broadcast: 'auto')~> PrecautionJoin",
+						"PrecautionJoin sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     mapColumn(",
+						"          Disease = RemoveUnwanted@Disease,",
+						"          Symptom,",
+						"          Symptom_0,",
+						"          Disease = Description@Disease,",
+						"          Symptom_Description,",
+						"          Disease = Precaution@Disease,",
+						"          Symptom_precaution_0,",
+						"          Symptom_precaution_1,",
+						"          Symptom_precaution_2,",
+						"          Symptom_precaution_3",
+						"     )) ~> Blob"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Disease')]",
+				"[concat(variables('factoryId'), '/datasets/DiseaseDescription')]",
+				"[concat(variables('factoryId'), '/datasets/Precaution')]",
+				"[concat(variables('factoryId'), '/datasets/Symptoms')]",
+				"[concat(variables('factoryId'), '/datasets/FinalOutput')]"
+			]
+		}
+	]
+}
