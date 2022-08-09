@@ -1006,8 +1006,6 @@
 						"     stageInsert: true,",
 						"     mapColumn(",
 						"          ID = id,",
-						"          NAME = name,",
-						"          TAG = tag,",
 						"          X = x,",
 						"          Y = y,",
 						"          DISTRICT = district,",
