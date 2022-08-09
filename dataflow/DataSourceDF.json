@@ -17,6 +17,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "Restaurant"
+				},
+				{
+					"dataset": {
+						"referenceName": "Reviews",
+						"type": "DatasetReference"
+					},
+					"name": "Reviews"
 				}
 			],
 			"sinks": [
@@ -33,6 +40,13 @@
 						"type": "DatasetReference"
 					},
 					"name": "RestSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeReviews",
+						"type": "DatasetReference"
+					},
+					"name": "RviewSink"
 				}
 			],
 			"transformations": [],
@@ -76,6 +90,20 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Restaurant",
+				"source(output(",
+				"          id_review as string,",
+				"          review as string,",
+				"          title as string,",
+				"          score as string,",
+				"          likes as string,",
+				"          id_nick as string,",
+				"          service as string,",
+				"          date as string,",
+				"          platform as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Reviews",
 				"Model sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
@@ -157,7 +185,34 @@
 				"          MIN_PRICE = min_price,",
 				"          MAX_PRICE = max_price,",
 				"          PLATFORM = platform",
-				"     )) ~> RestSink"
+				"     )) ~> RestSink",
+				"Reviews sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID_REVIEW as string,",
+				"          REVIEW as string,",
+				"          TITLE as string,",
+				"          SCORE as decimal(38,0),",
+				"          LIKES as decimal(38,0),",
+				"          ID_NICK as string,",
+				"          SERVICE as string,",
+				"          DATE as string,",
+				"          PLATFORM as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          ID_REVIEW = id_review,",
+				"          SCORE = score,",
+				"          LIKES = likes,",
+				"          DATE = date",
+				"     )) ~> RviewSink"
 			]
 		}
 	}
