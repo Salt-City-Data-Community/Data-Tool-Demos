@@ -175,7 +175,6 @@
 				"          ID_REVIEW = id_review,",
 				"          SCORE = score,",
 				"          LIKES = likes,",
-				"          ID_NICK = id_nick,",
 				"          SERVICE = service,",
 				"          DATE = date,",
 				"          PLATFORM = platform",
