@@ -13,13 +13,6 @@
 				},
 				{
 					"dataset": {
-						"referenceName": "Reviews",
-						"type": "DatasetReference"
-					},
-					"name": "Reviews"
-				},
-				{
-					"dataset": {
 						"referenceName": "Restaurant",
 						"type": "DatasetReference"
 					},
@@ -33,13 +26,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "ModelSink"
-				},
-				{
-					"dataset": {
-						"referenceName": "SnowflakeReviews",
-						"type": "DatasetReference"
-					},
-					"name": "ReviewsSink"
 				},
 				{
 					"dataset": {
@@ -72,20 +58,6 @@
 				"     allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     ignoreNoFilesFound: false) ~> Model",
-				"source(output(",
-				"          id_review as string,",
-				"          review as string,",
-				"          title as string,",
-				"          score as integer,",
-				"          likes as integer,",
-				"          id_nick as string,",
-				"          service as string,",
-				"          date as string,",
-				"          platform as string",
-				"     ),",
-				"     allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     ignoreNoFilesFound: false) ~> Reviews",
 				"source(output(",
 				"          id as string,",
 				"          name as string,",
@@ -150,35 +122,6 @@
 				"          STARS_4 = stars_4,",
 				"          STARS_5 = stars_5",
 				"     )) ~> ModelSink",
-				"Reviews sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
-				"          ID_REVIEW as string,",
-				"          REVIEW as string,",
-				"          TITLE as string,",
-				"          SCORE as decimal(38,0),",
-				"          LIKES as decimal(38,0),",
-				"          ID_NICK as string,",
-				"          SERVICE as string,",
-				"          DATE as string,",
-				"          PLATFORM as string",
-				"     ),",
-				"     deletable:false,",
-				"     insertable:true,",
-				"     updateable:false,",
-				"     upsertable:false,",
-				"     format: 'table',",
-				"     skipDuplicateMapInputs: true,",
-				"     skipDuplicateMapOutputs: true,",
-				"     stageInsert: true,",
-				"     mapColumn(",
-				"          ID_REVIEW = id_review,",
-				"          SCORE = score,",
-				"          LIKES = likes,",
-				"          SERVICE = service,",
-				"          DATE = date,",
-				"          PLATFORM = platform",
-				"     )) ~> ReviewsSink",
 				"Restaurant sink(allowSchemaDrift: true,",
 				"     validateSchema: false,",
 				"     input(",
