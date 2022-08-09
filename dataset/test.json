@@ -1,10 +1,6 @@
 {
 	"name": "test",
 	"properties": {
-		"linkedServiceName": {
-			"referenceName": "testlinkedforreplace",
-			"type": "LinkedServiceReference"
-		},
 		"annotations": [],
 		"type": "DelimitedText",
 		"typeProperties": {
