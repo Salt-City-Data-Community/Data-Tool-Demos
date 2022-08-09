@@ -209,9 +209,12 @@
 				"     stageInsert: true,",
 				"     mapColumn(",
 				"          ID_REVIEW = id_review,",
-				"          SCORE = score,",
-				"          LIKES = likes,",
-				"          DATE = date",
+				"          REVIEW = review,",
+				"          TITLE = title,",
+				"          ID_NICK = id_nick,",
+				"          SERVICE = service,",
+				"          DATE = date,",
+				"          PLATFORM = platform",
 				"     )) ~> RviewSink"
 			]
 		}
