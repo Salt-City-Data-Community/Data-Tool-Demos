@@ -1,0 +1,88 @@
+{
+	"name": "Model",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "model.csv",
+				"container": "peruvianfoodreview"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id_review",
+				"type": "String"
+			},
+			{
+				"name": "anger",
+				"type": "String"
+			},
+			{
+				"name": "anticipation",
+				"type": "String"
+			},
+			{
+				"name": "disgust",
+				"type": "String"
+			},
+			{
+				"name": "fear",
+				"type": "String"
+			},
+			{
+				"name": "joy",
+				"type": "String"
+			},
+			{
+				"name": "sadness",
+				"type": "String"
+			},
+			{
+				"name": "surprise",
+				"type": "String"
+			},
+			{
+				"name": "trust",
+				"type": "String"
+			},
+			{
+				"name": "negative",
+				"type": "String"
+			},
+			{
+				"name": "positive",
+				"type": "String"
+			},
+			{
+				"name": "stars_1",
+				"type": "String"
+			},
+			{
+				"name": "stars_2",
+				"type": "String"
+			},
+			{
+				"name": "stars_3",
+				"type": "String"
+			},
+			{
+				"name": "stars_4",
+				"type": "String"
+			},
+			{
+				"name": "stars_5",
+				"type": "String"
+			}
+		]
+	}
+}

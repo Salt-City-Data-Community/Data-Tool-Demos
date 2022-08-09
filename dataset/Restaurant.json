@@ -1,0 +1,76 @@
+{
+	"name": "Restaurant",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "restaurants.csv",
+				"container": "peruvianfoodreview"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id",
+				"type": "String"
+			},
+			{
+				"name": "name",
+				"type": "String"
+			},
+			{
+				"name": "tag",
+				"type": "String"
+			},
+			{
+				"name": "x",
+				"type": "String"
+			},
+			{
+				"name": "y",
+				"type": "String"
+			},
+			{
+				"name": "district",
+				"type": "String"
+			},
+			{
+				"name": "IDDIST",
+				"type": "String"
+			},
+			{
+				"name": "direction",
+				"type": "String"
+			},
+			{
+				"name": "stars",
+				"type": "String"
+			},
+			{
+				"name": "n_reviews",
+				"type": "String"
+			},
+			{
+				"name": "min_price",
+				"type": "String"
+			},
+			{
+				"name": "max_price",
+				"type": "String"
+			},
+			{
+				"name": "platform",
+				"type": "String"
+			}
+		]
+	}
+}

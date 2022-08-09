@@ -1,0 +1,95 @@
+{
+	"name": "SnowflakeRest",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeTable",
+		"schema": [
+			{
+				"name": "ID",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			},
+			{
+				"name": "NAME",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			},
+			{
+				"name": "TAG",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			},
+			{
+				"name": "X",
+				"type": "FLOAT",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "Y",
+				"type": "FLOAT",
+				"precision": 15,
+				"scale": 0
+			},
+			{
+				"name": "DISTRICT",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			},
+			{
+				"name": "IDDIST",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "DIRECTION",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			},
+			{
+				"name": "STARS",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "N_REVIEWS",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "MIN_PRICE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "MAX_PRICE",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "PLATFORM",
+				"type": "VARCHAR",
+				"precision": 150,
+				"scale": 0
+			}
+		],
+		"typeProperties": {
+			"schema": "STAGING",
+			"table": "RESTAURANTS"
+		}
+	}
+}
