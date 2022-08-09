@@ -1167,8 +1167,6 @@
 						"     stageInsert: true,",
 						"     mapColumn(",
 						"          ID_REVIEW = id_review,",
-						"          REVIEW = review,",
-						"          TITLE = title,",
 						"          ID_NICK = id_nick,",
 						"          SERVICE = service,",
 						"          DATE = date,",
