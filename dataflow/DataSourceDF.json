@@ -1,0 +1,184 @@
+{
+	"name": "DataSourceDF",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Model",
+						"type": "DatasetReference"
+					},
+					"name": "Model"
+				},
+				{
+					"dataset": {
+						"referenceName": "Reviews",
+						"type": "DatasetReference"
+					},
+					"name": "Reviews"
+				},
+				{
+					"dataset": {
+						"referenceName": "Restaurant",
+						"type": "DatasetReference"
+					},
+					"name": "Restaurant"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeModel",
+						"type": "DatasetReference"
+					},
+					"name": "ModelSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeReviews",
+						"type": "DatasetReference"
+					},
+					"name": "ReviewsSink"
+				},
+				{
+					"dataset": {
+						"referenceName": "SnowflakeRest",
+						"type": "DatasetReference"
+					},
+					"name": "RestSink"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          id_review as string,",
+				"          anger as float,",
+				"          anticipation as float,",
+				"          disgust as float,",
+				"          fear as float,",
+				"          joy as float,",
+				"          sadness as float,",
+				"          surprise as float,",
+				"          trust as float,",
+				"          negative as float,",
+				"          positive as float,",
+				"          stars_1 as float,",
+				"          stars_2 as float,",
+				"          stars_3 as float,",
+				"          stars_4 as float,",
+				"          stars_5 as float",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Model",
+				"source(output(",
+				"          id_review as string,",
+				"          review as string,",
+				"          title as string,",
+				"          score as integer,",
+				"          likes as integer,",
+				"          id_nick as string,",
+				"          service as string,",
+				"          date as string,",
+				"          platform as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Reviews",
+				"source(output(",
+				"          id as string,",
+				"          name as string,",
+				"          tag as string,",
+				"          x as float,",
+				"          y as float,",
+				"          district as string,",
+				"          IDDIST as integer,",
+				"          direction as string,",
+				"          stars as integer,",
+				"          n_reviews as integer,",
+				"          min_price as integer,",
+				"          max_price as integer,",
+				"          platform as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> Restaurant",
+				"Model sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID_REVIEW as string,",
+				"          ANGER as double,",
+				"          ANTICIPATION as double,",
+				"          DISGUST as double,",
+				"          FEAR as double,",
+				"          JOY as double,",
+				"          SADNESS as double,",
+				"          SURPRISE as double,",
+				"          TRUST as double,",
+				"          NEGATIVE as double,",
+				"          POSITIVE as double,",
+				"          STARS_1 as double,",
+				"          STARS_2 as double,",
+				"          STARS_3 as double,",
+				"          STARS_4 as double,",
+				"          STARS_5 as double",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true) ~> ModelSink",
+				"Reviews sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID_REVIEW as string,",
+				"          REVIEW as string,",
+				"          TITLE as string,",
+				"          SCORE as decimal(38,0),",
+				"          LIKES as decimal(38,0),",
+				"          ID_NICK as string,",
+				"          SERVICE as string,",
+				"          DATE as string,",
+				"          PLATFORM as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true) ~> ReviewsSink",
+				"Restaurant sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          ID as string,",
+				"          NAME as string,",
+				"          TAG as string,",
+				"          X as double,",
+				"          Y as double,",
+				"          DISTRICT as string,",
+				"          IDDIST as decimal(38,0),",
+				"          DIRECTION as string,",
+				"          STARS as decimal(38,0),",
+				"          N_REVIEWS as decimal(38,0),",
+				"          MIN_PRICE as decimal(38,0),",
+				"          MAX_PRICE as decimal(38,0),",
+				"          PLATFORM as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:false,",
+				"     upsertable:false,",
+				"     format: 'table',",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     stageInsert: true) ~> RestSink"
+			]
+		}
+	}
+}

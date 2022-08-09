@@ -1,0 +1,60 @@
+{
+	"name": "Reviews",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "reviews.csv",
+				"container": "peruvianfoodreview"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "id_review",
+				"type": "String"
+			},
+			{
+				"name": "review",
+				"type": "String"
+			},
+			{
+				"name": "title",
+				"type": "String"
+			},
+			{
+				"name": "score",
+				"type": "String"
+			},
+			{
+				"name": "likes",
+				"type": "String"
+			},
+			{
+				"name": "id_nick",
+				"type": "String"
+			},
+			{
+				"name": "service",
+				"type": "String"
+			},
+			{
+				"name": "date",
+				"type": "String"
+			},
+			{
+				"name": "platform",
+				"type": "String"
+			}
+		]
+	}
+}
