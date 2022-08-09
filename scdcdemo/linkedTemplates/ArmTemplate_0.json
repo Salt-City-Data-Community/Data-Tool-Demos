@@ -10,6 +10,10 @@
 		"AzureBlobStorage1_connectionString": {
 			"type": "secureString",
 			"metadata": "Secure string for 'connectionString' of 'AzureBlobStorage1'"
+		},
+		"Snowflake_connectionString": {
+			"type": "secureString",
+			"metadata": "Secure string for 'connectionString' of 'Snowflake'"
 		}
 	},
 	"variables": {
@@ -25,6 +29,19 @@
 				"type": "AzureBlobStorage",
 				"typeProperties": {
 					"connectionString": "[parameters('AzureBlobStorage1_connectionString')]"
+				}
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Snowflake')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "Snowflake",
+				"typeProperties": {
+					"connectionString": "[parameters('Snowflake_connectionString')]"
 				}
 			},
 			"dependsOn": []
@@ -218,6 +235,99 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Model')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "model.csv",
+						"container": "peruvianfoodreview"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id_review",
+						"type": "String"
+					},
+					{
+						"name": "anger",
+						"type": "String"
+					},
+					{
+						"name": "anticipation",
+						"type": "String"
+					},
+					{
+						"name": "disgust",
+						"type": "String"
+					},
+					{
+						"name": "fear",
+						"type": "String"
+					},
+					{
+						"name": "joy",
+						"type": "String"
+					},
+					{
+						"name": "sadness",
+						"type": "String"
+					},
+					{
+						"name": "surprise",
+						"type": "String"
+					},
+					{
+						"name": "trust",
+						"type": "String"
+					},
+					{
+						"name": "negative",
+						"type": "String"
+					},
+					{
+						"name": "positive",
+						"type": "String"
+					},
+					{
+						"name": "stars_1",
+						"type": "String"
+					},
+					{
+						"name": "stars_2",
+						"type": "String"
+					},
+					{
+						"name": "stars_3",
+						"type": "String"
+					},
+					{
+						"name": "stars_4",
+						"type": "String"
+					},
+					{
+						"name": "stars_5",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Precaution')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -267,6 +377,446 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Restaurant')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "restaurants.csv",
+						"container": "peruvianfoodreview"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id",
+						"type": "String"
+					},
+					{
+						"name": "name",
+						"type": "String"
+					},
+					{
+						"name": "tag",
+						"type": "String"
+					},
+					{
+						"name": "x",
+						"type": "String"
+					},
+					{
+						"name": "y",
+						"type": "String"
+					},
+					{
+						"name": "district",
+						"type": "String"
+					},
+					{
+						"name": "IDDIST",
+						"type": "String"
+					},
+					{
+						"name": "direction",
+						"type": "String"
+					},
+					{
+						"name": "stars",
+						"type": "String"
+					},
+					{
+						"name": "n_reviews",
+						"type": "String"
+					},
+					{
+						"name": "min_price",
+						"type": "String"
+					},
+					{
+						"name": "max_price",
+						"type": "String"
+					},
+					{
+						"name": "platform",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/Reviews')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureBlobStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobStorageLocation",
+						"fileName": "reviews.csv",
+						"container": "peruvianfoodreview"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "id_review",
+						"type": "String"
+					},
+					{
+						"name": "review",
+						"type": "String"
+					},
+					{
+						"name": "title",
+						"type": "String"
+					},
+					{
+						"name": "score",
+						"type": "String"
+					},
+					{
+						"name": "likes",
+						"type": "String"
+					},
+					{
+						"name": "id_nick",
+						"type": "String"
+					},
+					{
+						"name": "service",
+						"type": "String"
+					},
+					{
+						"name": "date",
+						"type": "String"
+					},
+					{
+						"name": "platform",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeModel')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeTable",
+				"schema": [
+					{
+						"name": "ID_REVIEW",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "ANGER",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "ANTICIPATION",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "DISGUST",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "FEAR",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "JOY",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "SADNESS",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "SURPRISE",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "TRUST",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "NEGATIVE",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "POSITIVE",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "STARS_1",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "STARS_2",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "STARS_3",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "STARS_4",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "STARS_5",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "STAGING",
+					"table": "MODEL"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Snowflake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeRest')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeTable",
+				"schema": [
+					{
+						"name": "ID",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "NAME",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "TAG",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "X",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "Y",
+						"type": "FLOAT",
+						"precision": 15,
+						"scale": 0
+					},
+					{
+						"name": "DISTRICT",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "IDDIST",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "DIRECTION",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "STARS",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "N_REVIEWS",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "MIN_PRICE",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "MAX_PRICE",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "PLATFORM",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "STAGING",
+					"table": "RESTAURANTS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Snowflake')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/SnowflakeReviews')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "Snowflake",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "SnowflakeTable",
+				"schema": [
+					{
+						"name": "ID_REVIEW",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "REVIEW",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "TITLE",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "SCORE",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "LIKES",
+						"type": "NUMBER",
+						"precision": 38,
+						"scale": 0
+					},
+					{
+						"name": "ID_NICK",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "SERVICE",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "DATE",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					},
+					{
+						"name": "PLATFORM",
+						"type": "VARCHAR",
+						"precision": 150,
+						"scale": 0
+					}
+				],
+				"typeProperties": {
+					"schema": "STAGING",
+					"table": "REVIEWS"
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/Snowflake')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Symptoms')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -301,6 +851,200 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/linkedServices/AzureBlobStorage1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/DataSourceDF')]",
+			"type": "Microsoft.DataFactory/factories/dataflows",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"type": "MappingDataFlow",
+				"typeProperties": {
+					"sources": [
+						{
+							"dataset": {
+								"referenceName": "Model",
+								"type": "DatasetReference"
+							},
+							"name": "Model"
+						},
+						{
+							"dataset": {
+								"referenceName": "Reviews",
+								"type": "DatasetReference"
+							},
+							"name": "Reviews"
+						},
+						{
+							"dataset": {
+								"referenceName": "Restaurant",
+								"type": "DatasetReference"
+							},
+							"name": "Restaurant"
+						}
+					],
+					"sinks": [
+						{
+							"dataset": {
+								"referenceName": "SnowflakeModel",
+								"type": "DatasetReference"
+							},
+							"name": "ModelSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "SnowflakeReviews",
+								"type": "DatasetReference"
+							},
+							"name": "ReviewsSink"
+						},
+						{
+							"dataset": {
+								"referenceName": "SnowflakeRest",
+								"type": "DatasetReference"
+							},
+							"name": "RestSink"
+						}
+					],
+					"transformations": [],
+					"scriptLines": [
+						"source(output(",
+						"          id_review as string,",
+						"          anger as float,",
+						"          anticipation as float,",
+						"          disgust as float,",
+						"          fear as float,",
+						"          joy as float,",
+						"          sadness as float,",
+						"          surprise as float,",
+						"          trust as float,",
+						"          negative as float,",
+						"          positive as float,",
+						"          stars_1 as float,",
+						"          stars_2 as float,",
+						"          stars_3 as float,",
+						"          stars_4 as float,",
+						"          stars_5 as float",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Model",
+						"source(output(",
+						"          id_review as string,",
+						"          review as string,",
+						"          title as string,",
+						"          score as integer,",
+						"          likes as integer,",
+						"          id_nick as string,",
+						"          service as string,",
+						"          date as string,",
+						"          platform as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Reviews",
+						"source(output(",
+						"          id as string,",
+						"          name as string,",
+						"          tag as string,",
+						"          x as float,",
+						"          y as float,",
+						"          district as string,",
+						"          IDDIST as integer,",
+						"          direction as string,",
+						"          stars as integer,",
+						"          n_reviews as integer,",
+						"          min_price as integer,",
+						"          max_price as integer,",
+						"          platform as string",
+						"     ),",
+						"     allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     ignoreNoFilesFound: false) ~> Restaurant",
+						"Model sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID_REVIEW as string,",
+						"          ANGER as double,",
+						"          ANTICIPATION as double,",
+						"          DISGUST as double,",
+						"          FEAR as double,",
+						"          JOY as double,",
+						"          SADNESS as double,",
+						"          SURPRISE as double,",
+						"          TRUST as double,",
+						"          NEGATIVE as double,",
+						"          POSITIVE as double,",
+						"          STARS_1 as double,",
+						"          STARS_2 as double,",
+						"          STARS_3 as double,",
+						"          STARS_4 as double,",
+						"          STARS_5 as double",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     stageInsert: true) ~> ModelSink",
+						"Reviews sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID_REVIEW as string,",
+						"          REVIEW as string,",
+						"          TITLE as string,",
+						"          SCORE as decimal(38,0),",
+						"          LIKES as decimal(38,0),",
+						"          ID_NICK as string,",
+						"          SERVICE as string,",
+						"          DATE as string,",
+						"          PLATFORM as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     stageInsert: true) ~> ReviewsSink",
+						"Restaurant sink(allowSchemaDrift: true,",
+						"     validateSchema: false,",
+						"     input(",
+						"          ID as string,",
+						"          NAME as string,",
+						"          TAG as string,",
+						"          X as double,",
+						"          Y as double,",
+						"          DISTRICT as string,",
+						"          IDDIST as decimal(38,0),",
+						"          DIRECTION as string,",
+						"          STARS as decimal(38,0),",
+						"          N_REVIEWS as decimal(38,0),",
+						"          MIN_PRICE as decimal(38,0),",
+						"          MAX_PRICE as decimal(38,0),",
+						"          PLATFORM as string",
+						"     ),",
+						"     deletable:false,",
+						"     insertable:true,",
+						"     updateable:false,",
+						"     upsertable:false,",
+						"     format: 'table',",
+						"     skipDuplicateMapInputs: true,",
+						"     skipDuplicateMapOutputs: true,",
+						"     stageInsert: true) ~> RestSink"
+					]
+				}
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/Model')]",
+				"[concat(variables('factoryId'), '/datasets/Reviews')]",
+				"[concat(variables('factoryId'), '/datasets/Restaurant')]",
+				"[concat(variables('factoryId'), '/datasets/SnowflakeModel')]",
+				"[concat(variables('factoryId'), '/datasets/SnowflakeReviews')]",
+				"[concat(variables('factoryId'), '/datasets/SnowflakeRest')]"
 			]
 		},
 		{
@@ -523,6 +1267,57 @@
 			},
 			"dependsOn": [
 				"[concat(variables('factoryId'), '/dataflows/dataflow1')]"
+			]
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/PeruvianFood')]",
+			"type": "Microsoft.DataFactory/factories/pipelines",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"activities": [
+					{
+						"name": "Copy Datasets",
+						"type": "ExecuteDataFlow",
+						"dependsOn": [],
+						"policy": {
+							"timeout": "1.00:00:00",
+							"retry": 0,
+							"retryIntervalInSeconds": 30,
+							"secureOutput": false,
+							"secureInput": false
+						},
+						"userProperties": [],
+						"typeProperties": {
+							"dataflow": {
+								"referenceName": "DataSourceDF",
+								"type": "DataFlowReference",
+								"parameters": {},
+								"datasetParameters": {
+									"Model": {},
+									"Reviews": {},
+									"Restaurant": {},
+									"ModelSink": {},
+									"ReviewsSink": {},
+									"RestSink": {}
+								}
+							},
+							"staging": {},
+							"compute": {
+								"coreCount": 8,
+								"computeType": "General"
+							},
+							"traceLevel": "Fine"
+						}
+					}
+				],
+				"policy": {
+					"elapsedTimeMetric": {},
+					"cancelAfter": {}
+				},
+				"annotations": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/dataflows/DataSourceDF')]"
 			]
 		}
 	]
