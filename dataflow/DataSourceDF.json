@@ -173,7 +173,6 @@
 				"     stageInsert: true,",
 				"     mapColumn(",
 				"          ID_REVIEW = id_review,",
-				"          REVIEW = review,",
 				"          TITLE = title,",
 				"          SCORE = score,",
 				"          LIKES = likes,",
