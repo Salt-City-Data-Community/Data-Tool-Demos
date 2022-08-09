@@ -17,7 +17,7 @@
 			{
 				"name": "REVIEW",
 				"type": "VARCHAR",
-				"precision": 150,
+				"precision": 0,
 				"scale": 0
 			},
 			{
